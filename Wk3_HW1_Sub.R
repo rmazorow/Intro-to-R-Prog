@@ -1,10 +1,11 @@
+# Rocky Mazorow
+# Feb 8, 2022
+
 # HOMEWORK PROBLEMS
-#library(primes)
 
 # Problem 1
  
 # Part A: Create a matrix P whose entries are all prime numbers below 30.   
-#generate_primes(max = 30)
 cells <- c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
 P <- matrix(cells, nrow=5, ncol=2)
 dim(P)

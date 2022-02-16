@@ -1,3 +1,6 @@
+# Rocky Mazorow
+# Feb 9, 2022
+
 # WORKSHEET 1 REVIEW
 
 # Vector Recycling = repeat shorter vector to complete math (may not use all the same amount)

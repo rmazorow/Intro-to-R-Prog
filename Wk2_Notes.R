@@ -1,3 +1,6 @@
+# Rocky Mazorow
+# Feb 2, 2022
+
 # VECTOR INTRO
 # Numeric vector
 a <- c(3, 3.1, 3.14, pi, -pi, cos(pi))
