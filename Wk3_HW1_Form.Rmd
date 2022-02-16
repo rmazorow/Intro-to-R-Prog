@@ -1,0 +1,138 @@
+---
+title: 'Homework 1'
+author: "Rocky Mazorow (Section 102)"
+date: "2/9/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Directions*: 
+
+* Write your R code inside the code chunks after each question.
+* Write your answer comments after the `#` sign.
+* To generate the word document output, click the button `Knit` and wait for the word document to appear.
+* RStudio will prompt you (only once) to install the `knitr` package.
+* Submit your completed worksheet on D2L under the worksheet folder.
+
+***
+
+1. Create a matrix whose entries are all prime numbers below 30.  
+      i)  Create this matrix using the function `matrix()` with five rows. Save the matrix as `P`.  
+      ii) Extract the second and third row out of `P`.  
+      iii) Extract the entry in the fourth row and first column of `P`.  
+      iv) Generate the transpose of the matrix using the function `t()`. What is the new dimension of this matrix.  
+
+### Code chunk
+```{r}
+# Insert your code for this question after this line
+
+# Part A: Create a matrix P whose entries are all prime numbers below 30.   
+cells <- c(2, 3, 5, 7, 11, 13, 17, 19, 23, 29)
+P <- matrix(cells, nrow=5, ncol=2)
+dim(P)
+
+# Part B: Extract the second and third row out of `P`.
+P[ c(2,3), ]
+
+# Part C: Extract the entry in the fourth row and first column of `P`.
+P[4,1]
+
+# Part D: Generate the transpose of the matrix using the function `t()`. 
+#         What is the new dimension of this matrix?
+T <- t(P)
+dim(T)
+
+```
+
+2. Create and manipulate a data frame.
+      i) Create a `data.frame` named `my.trees` that has the following columns:  
+          - `Girth = c(8.3, 8.6, 8.8, 10.5, 10.7, 10.8, 11.0)`  
+          - `Height = c(70, 65, 63, 72, 81, 83, 66)`  
+          - `Volume = c(10.3, 10.3, 10.2, 16.4, 18.8, 19.7, 15.6)`  
+      ii) Extract the fifth observational unit.  
+      iii) Extract the `Girth` column referring to it by name.  
+      iv) Print out a data frame of all the observations except for the last observation.  
+
+
+### Code chunk
+```{r}
+# Insert your code for this question after this line
+
+# Part A: Create a data.frame named `my.trees` that has the following columns:  
+#         Girth = c(8.3, 8.6, 8.8, 10.5, 10.7, 10.8, 11.0) 
+#         Height = c(70, 65, 63, 72, 81, 83, 66) 
+#         Volume = c(10.3, 10.3, 10.2, 16.4, 18.8, 19.7, 15.6)
+Girth <- c(8.3, 8.6, 8.8, 10.5, 10.7, 10.8, 11.0) 
+Height <- c(70, 65, 63, 72, 81, 83, 66) 
+Volume <- c(10.3, 10.3, 10.2, 16.4, 18.8, 19.7, 15.6)
+my.trees <- data.frame(Girth, Height, Volume)
+
+# Part B: Extract the fifth observational unit.  
+my.trees[5,]
+
+# Part C: Extract the `Girth` column referring to it by name. 
+my.trees["Girth"]
+
+# Part D: Print out a data frame of all the observations except for the last observation.
+my.trees[c(1:(nrow(my.trees)-1)),]
+
+```
+
+3. The popular `iris` data set gives the measurements in centimeters of the variables sepal length and width and petal length and width, respectively, for 50 flowers from each of 3 species of iris. The species are Iris setosa, versicolor, and virginica. The `iris` data set is included with every R installation.  
+      i) Check the structure of the`iris` data.   
+      ii) How many variables and observations are in the data set?   
+      iii) Which variables are `numeric` type?  
+      iv) Display the first 4 rows of the data.  
+
+
+
+### Code chunk
+```{r} 
+# Insert your code for this question after this line
+
+# Part A: Check the structure of the`iris` data.   
+str(iris)
+
+# Part B: How many variables and observations are in the data set?   
+#     There are 5 variables and 150 observations
+
+# Part C: Which variables are `numeric` type?  
+#     The numeric variables are Sepal.Length, Sepal.Width, Petal.Length, Petal.Width
+
+# Part D: Display the first 4 rows of the data. 
+iris[1:4,]
+
+```
+
+
+
+  
+4.  You will work with the passenger Titanic data found on this [link](<https://goo.gl/NHb1Pg>).   
+      i) Read this data directly from the web using its URL.  
+      ii) Read this data by saving it first into your working directory. Check your working directory using `getwd()` or change its location using the steps covered in the lesson.  
+      iii) How many passengers and what variables are in the data set?   
+      iv) Display the first 5 rows of the data.  
+
+### Code chunk
+```{r}
+# Insert your code for this question after this line
+
+# Part A: Read Titanic data directly from the web: <https://goo.gl/NHb1Pg> 
+titanic.data1 <- read.csv("https://goo.gl/NHb1Pg", header = TRUE)
+
+# Part B: Read this data by saving it first into your working directory. 
+#         Check your working directory using `getwd()` or change its location using the steps covered in the lesson.  
+getwd()
+titanic.data2 <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/Titanic_Data.csv", header = TRUE)
+
+# Part C: How many passengers and what variables are in the data set?   
+str(titanic.data1)
+#   There are 1316 passengers
+#   The variables are X, class, age, sex, and survived
+
+# Part D: Display the first 5 rows of the data.  
+titanic.data1[1:5, ]
+```
