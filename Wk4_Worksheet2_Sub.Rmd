@@ -1,0 +1,66 @@
+---
+title: "Worksheet 2"
+author: "Rocky Mazorow"
+date: "2/16/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Directions*: 
+
+1. Create an rmarkdown file that outputs a word document.
+2. Create an unordered list of groceries (5 items) with a level 3 header “Grocery”.
+3. Create an ordered list out the list (Freshman, Sophomore, Junior, Senior, Graduate) with a level 3 header “Year”
+4. Insert the image uploaded on D2L in your document.
+5. Create a link in your document connecting the text "R Markdown" to the url "https://rmarkdown.rstudio.com/".
+6. Insert an R Chunk with the options of showing both code and the output. The chunk should contains:
+    * your working directory.
+    * the structure of iris dataset
+    * first 5 observations of iris dataset.
+    * plot the sepal length and sepal width of the iris dataset on the x-axis and y-axis respectively.
+7. Knit your document and Submit it to the Worksheet 2 folder in D2L.
+
+***
+
+### Grocery
+
+* Milk
+* Eggs
+* Bagels
+* Cream Cheese
+* Tea  
+
+### Year
+
+1. Freshman
+2. Sophomore
+3. Junior
+4. Senior
+5. Graduate  
+
+### Image
+```{r logo, echo=FALSE, out.width = '20%'}
+knitr::include_graphics("images/rmarkdown_logo.png")
+```  
+  
+### Link
+[R Markdown](https://rmarkdown.rstudio.com/)  
+  
+### R Chunk
+```{r test-chunk, echo=TRUE, eval=TRUE}
+# My working directory
+getwd()
+
+# The structure of iris dataset
+str(iris)
+
+# The first 5 observations of iris dataset
+iris[1:5,]
+
+# Plot of sepal length vs sepal width of the iris dataset 
+plot(x=iris$Sepal.Length, y=iris$Sepal.Width)
+
+```
