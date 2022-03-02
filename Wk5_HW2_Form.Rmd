@@ -1,0 +1,123 @@
+---
+title: 'Homework 2'
+author: "Rocky Mazorow (Section 102)"
+date: "3/1/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Directions*: 
+
+* Write your R code inside the code chunks after each question.
+* Write your answer after each code chunk.
+* To generate the word document output, click the button `Knit` and wait for the word document to appear.
+* RStudio will prompt you (only once) to install the `knitr` package.
+* Submit your completed worksheet on D2L under the appropriate Homework folder.
+
+***
+
+1. Recall the `iris` data set from last week's exercise. The `iris` data set is already pre-loaded in R - look at the help file using `?iris` for more information on this data set.   
+      i) Check the structure of the data using the function `str(iris)`.   
+      ii) Find the average (or mean) measurement of the variable `Sepal.Length`.    
+      iii) Find the average `Sepal.Length` for the different flower `Species`. Use the function `tapply()` https://r-coder.com/tapply-r/. Give a brief comment on the averages.  
+      iv) Repeat (ii) and (iii) but use the summary standard deviation `sd()` which describes the spread of the variable.   
+      v) Describe the shape of the variable `Sepal.Length` by creating a histogram using `histogram()`.  Write your description outside the code chunk.  
+      vi) Compare the `Sepal.Length` of the three species of flowers by creating a side-by-side boxplot using `boxplot()`. Write your description outside the code chunk.
+      
+
+### Code chunk
+```{r} 
+# Part A: Check the structure of the data using the function `str(iris)`.  
+str(iris)
+
+# Part B: Find the average (or mean) measurement of the variable `Sepal.Length`. 
+mean(iris$Sepal.Length, na.rm = TRUE)
+
+# Part C: Find the average `Sepal.Length` for the different flower `Species`.
+tapply(iris$Sepal.Length, iris$Species, mean)
+
+# Part D: Repeat (1.B) and (1.C) but use the summary standard deviation `sd()` 
+#         which describes the spread of the variable.   
+sd(iris$Sepal.Length, na.rm = TRUE)
+tapply(iris$Sepal.Length, iris$Species, sd)
+
+# Part E: Describe the shape of the variable `Sepal.Length` by creating a 
+#         histogram using `histogram()`. 
+hist(iris$Sepal.Length)
+
+# Part F: Compare the `Sepal.Length` of the three species of flowers by creating 
+#         a side-by-side boxplot using `boxplot()`.
+boxplot(iris$Sepal.Length ~ iris$Species)
+```
+
+### Code Analysis
+iii) The average sepal length is largest for the Virginica species and smallest for the setosa species.
+iv) Similar to above, the standard deviation for sepal length is largest for the Virginica species and smallest for the setosa species.
+v) The histogram jumps up at 4.5 and plateaus between 4.5 and 6.5. It then decreases twice at 6.5 and 7. This shows that the average sepal length is about 5.8.
+vi) As stated above, the Virginica species has the largest average sepal length; it also has one outlier. The Setosa species has the smallest interquartile range and whiskers.  
+&nbsp;  
+&nbsp;  
+
+2. The data set `MLB-TeamBatting-S16.csv` contains MLB Team Batting Data for selected variables. Download the data from D2L and load it into your working directory. Load the data set from the given url using the code below. This data set was obtained from [Baseball Reference](https://www.baseball-reference.com/leagues/MLB/2016-standard-batting.shtml).
+    * Tm - Team   
+    * Lg - League: American League (AL), National League (NL)  
+    * BatAge - Batters’ average age  
+    * RPG - Runs Scored Per Game  
+    * G - Games Played or Pitched  
+    * AB - At Bats  
+    * R - Runs Scored/Allowed  
+    * H - Hits/Hits Allowed  
+    * HR - Home Runs Hit/Allowed  
+    * RBI - Runs Batted In  
+    * SO - Strikeouts  
+    * BA - Hits/At Bats  
+    * SH - Sacrifice Hits (Sacrifice Bunts)  
+    * SF - Sacrifice Flies  
+
+    i) Find the average measurement for the following variables `BatAge`, `RPG`, `R`, `H` and `BA`.   
+    ii) Create histogram's for each variable in (i).     
+    iii) Using your own words, describe the distribution of each variable in (i).   Write your answer outside the code chunk.     
+    iv) Find the average and the standard deviation of the variables `RPG`, `H` and `BA` for each league. Use `tapply()`.    
+    v) Describe any differences or similarities between the leagues. Write your comment outside the code chunk.
+      
+
+
+### Code chunk
+```{r} 
+# Load the data set `MLB-TeamBatting-S16.csv`
+mlb16.data <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/data/mlb16.csv", header = TRUE)
+
+str(mlb16.data) # check structure
+head(mlb16.data)  # show first six rows
+
+# Part A: Find the average measurement for the following variables:
+#         `BatAge`, `RPG`, `R`, `H` and `BA`
+mean(mlb16.data$BatAge, na.rm = TRUE)
+mean(mlb16.data$RPG, na.rm = TRUE)
+mean(mlb16.data$R, na.rm = TRUE)
+mean(mlb16.data$H, na.rm = TRUE)
+mean(mlb16.data$BA, na.rm = TRUE)
+
+# Part B: Create histogram's for each variable in (2.A).     
+hist(mlb16.data$BatAge)
+hist(mlb16.data$RPG)
+hist(mlb16.data$R)
+hist(mlb16.data$H)
+hist(mlb16.data$BA)
+
+# Part D: Find the average and the standard deviation of the variables 
+#         `RPG`, `H` and `BA` for each league. Use `tapply()`.    
+tapply(mlb16.data$RPG, mlb16.data$Lg, mean)
+tapply(mlb16.data$RPG, mlb16.data$Lg, sd)
+tapply(mlb16.data$H, mlb16.data$Lg, mean)
+tapply(mlb16.data$H, mlb16.data$Lg, sd)
+tapply(mlb16.data$BA, mlb16.data$Lg, mean)
+tapply(mlb16.data$BA, mlb16.data$Lg, sd)
+```
+
+### Code Analysis
+iii) Batter's average age (mean = 28.43; three peaks) and runners batted in (mean = 4.478; two peaks) do not have a uniform distribution. Runs scored (mean = 724.8) and at bats (mean = 0.2553) have one peak weighted to the left. Hits allowed has one peak centered (mean = 1409.2).
+v) Runners batter in are similar to each other between leagues (AL: 4.519 +-0.3533; NL : 4.437 +-0.3914). AL has a higher number of hits allowed and less variability (1420 +-64.50) compared to NL (1398 +-71.57). The number of at bats are similar to each other between leagues (AL: 0.2569 +-0.0099; NL : 0.2537 +-0.0098).
