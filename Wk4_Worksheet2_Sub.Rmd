@@ -1,6 +1,6 @@
 ---
 title: "Worksheet 2"
-author: "Rocky Mazorow"
+author: "Rocky Mazorow  (Section 102)"
 date: "2/16/2022"
 output: word_document
 ---

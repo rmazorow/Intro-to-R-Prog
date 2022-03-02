@@ -70,7 +70,7 @@ titanic.data1 <- read.csv("https://goo.gl/NHb1Pg", header = TRUE)
 # Part B: Read this data by saving it first into your working directory. 
 #         Check your working directory using `getwd()` or change its location using the steps covered in the lesson.  
 getwd()
-titanic.data2 <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/Titanic_Data.csv", header = TRUE)
+titanic.data2 <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/data/Titanic_Data.csv", header = TRUE)
 
 # Part C: How many passengers and what variables are in the data set?   
 str(titanic.data1)
