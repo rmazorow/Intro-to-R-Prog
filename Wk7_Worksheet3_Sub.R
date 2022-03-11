@@ -1,0 +1,62 @@
+# Rocky Mazorow
+# March 9, 2022
+
+# WORKSHEET PROBLEMS
+
+
+
+# Problem 1
+# Load data set containing the annual salary (in $Million) information of 497 CEO’s in 2012
+set.seed(123456)
+ceo.data <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/data/CEO_Salary_2012.csv", header = TRUE)
+mu <- mean(ceo.data$Annual.pay)
+sigma <- sd(ceo.data$Annual.pay)
+
+# Part A: Select a random sample of 40 CEO's and compute the sample mean salary and sample standard deviation salary.
+s1  <- sample(ceo.data$Annual.pay,40)
+mean(s1)
+sd(s1)
+
+# Part B: Use the `sample()` function and the `for loop` in the lecture note to compute the sample mean of 100 randomly selected samples. Plot the histogram of these 100 sample means.
+nn <- 100
+ss <- matrix(NA, nrow=40, ncol=nn)
+for (j in 1:nn) ss[,j] <- sample(ceo.data$Annual, 40)
+sn <- apply(ss, 2, mean)
+
+hist(sn, main="Sample Mean (Size n= 40) Salary Distribution", xlab="Sample Mean Salary ($Mil)")
+
+# Part C: Compute the average and standard deviation of these 100 sample means. Are the values what you expect from the properties of the sampling distribution?
+mn2 <- mean(sn)
+sd2 <- sd(sn)
+
+#    Compare true values to sample values
+c(mu, mn2)    
+c(sigma/sqrt(40), sd2)
+#    I expected the sample mean to be comparable to the true mean. Since 40 samples is close to a sufficiently large sample size (n=30), I expected the sample standard deviation to be close to, if not a little less, than the true standard deviation. The results support both of these assumptions.
+
+
+
+# Problem 2
+# Rockwell hardness of pins of a certain type is known to have a mean value of 50 and standard deviation of 1.2.
+curve(dnorm(x, mean=50, sd=1.2), xlim=c(40,60), main = "Normal Density of the Rockwell Pin Hardness")
+
+# Part A: If the distribution is normal, what is the probability that the sample mean hardness for a random sample of 9 pins is at least 51?     
+pnorm(q = 51, mean = 50, sd = 1.2/sqrt(9), lower.tail=FALSE)
+
+# Part B: Without assuming population normality, what is the (approximate) probability that the sample mean hardness for a random sample of 40 pins is at least 51?
+pnorm(q = 51, mean = 50, sd = 1.2/sqrt(40), lower.tail=FALSE)
+
+
+
+# Problem 3
+# Suppose that a random sample of size 64 is to be selected from a population with mean 40 and standard deviation 5.
+
+# Part A: What are the mean and standard deviation of the sampling distribution of the sample mean?
+#    Sample is expected to have mean of 40 and standard deviation of 5. 
+r  <- rnorm(1000, mean = 40, sd = 5)
+s3 <- sample(r, 64)
+mean(s3)
+sd(s3)
+
+# Part B: What is the approximate probability that the sample mean will be within 0.5 of the population mean? 
+pnorm(40.5, mean=40, sd=5/sqrt(64))-pnorm(39.5, mean=40, sd=5/sqrt(64))
