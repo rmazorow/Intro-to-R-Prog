@@ -1,0 +1,138 @@
+---
+title: 'Homework 4'
+author: "Rocky Mazorow (Section 102)"
+date: "5/2/2022"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+*Directions*: 
+
+* Write your R code inside the code chunks after each question.
+* Write your answer after each code chunk.
+* Download datasets from D2L
+* To generate the word document output, click the button `Knit` and wait for the word document to appear.
+* RStudio will prompt you (only once) to install the `knitr` package.
+* Submit your completed worksheet on D2L under the appropriate Homework folder.
+
+***
+
+1. Data from the US Federal Reserve Board (2002) on the percentage of disposable personal income required to meet consumer load payments and mortgage payments for selected years are found in the data below.
+
+```{r}
+debt <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/data/debt.csv", header = TRUE)
+```
+
+  i) Construct a scatterplot with a simple regression for this data set.      
+  ii) Check the error model assumption visually by constructing a residual plot and QQplot of the residuals. Interpret what you see.  
+  iii) Estimate the population regression slope by constructing 95\% confidence interval. Give a brief interpretation of the estimated slope in the context of the problem.  
+  iv) Perform a hypothesis test on the regression slope, use a 5\% level of significance. Given an appropriate conclusion.
+
+
+
+### Code chunk
+```{r} 
+# Part A: Construct a scatterplot with a simple regression for this data set.   
+# Let consumer debt be the predictor variable (xBar) and let household debt be the response variable (y).
+#    y = b0 + (b1 * xBar)
+consumerDebt  <- debt$Consumer_Debt
+householdDebt <- debt$Household_Debt
+plot(consumerDebt,householdDebt)
+lm <- lm(householdDebt~consumerDebt)
+abline(lm,col="red")
+lm
+# householdDebt = 5.70386 + (0.03316 * consumerDebt)
+
+# Part B: Check the error model assumption visually by constructing a residual plot and QQplot of the residuals. 
+# Interpret what you see.  
+plot(lm, which=1)
+plot(lm, which=2)
+
+# Part C: Estimate the population regression slope by constructing 95% confidence interval. Give a brief interpretation of the estimated slope in the context of the problem.  
+confint(lm)
+
+# Part D: Perform a hypothesis test on the regression slope, use a 5% level of significance. Given an appropriate conclusion.
+#    H0: b1 = 0
+#    Ha: b1 != 0
+summary(lm)   
+
+```
+
+### Code Analysis
+i) An observable trend is not seen from the scatterplot.
+ii) The residuals vs. fitted plot reveals no obvious linear or curvilinear relationship which cause us to question the linear relationship. The variance of the residual terms does not seem to be constant. Outliers are hard to detect with variance. The QQplot reveals most values off the line and do not appear to be normally distributed.
+iii) The 95% confidence interval for the slope is (-0.1343205, 0.2006446). Zero is a plausible value for the population regression slope on consumer debt as predictor of household debt. Hence, consumer debt has no influence on household debt.
+iv) Since p-value (0.6758) > alpha (0.05), we fail to reject the null hypothesis that the population slope is zero. Based on this simple regression model, there is insufficient evidence to conclude that the consumer debt is useful in predicting household debt.
+&nbsp;  
+&nbsp; 
+
+2. The data below contains sale price, size, and land-to-building ratio for 10 large industrial properties
+
+```{r}
+saleprice <- read.csv("/Users/rmazorow/Library/CloudStorage/OneDrive-MarquetteUniversity/School Work/MSSC 5931/Intro-to-R-Prog/data/saleprice.csv", header = TRUE)
+```
+
+  i) Construct a scatterpot for `sale price versus size` and `sale price versus land-to-building ratio`. Be sure to fit regression lines on the scatterplots.    
+  ii) Use the `lm` function to estimate the equations of each regression model for `sale price versus size` and `sale price versus land-to-building ratio`.  
+  iii) Check the error model assumption visually by constructing a residual plot and QQplot of the residuals for the two models.  
+  iv) Estimate the population regression slope of each model (line) by constructing 95\% confidence interval. Give a brief interpretation of the estimated slope in the context of the problem.    
+  v) Perform a hypothesis test on the regression slope of each model (line), use a 5\% level of significance. Give an appropriate conclusion.
+
+### Code chunk
+```{r} 
+# Part A: Construct a scatterpot for `sale price versus size` and `sale price versus land-to-building ratio`. Be sure to fit regression lines on the scatterplots.  
+# Let sale price be the predictor variable. Let size and land-to-building ratio be the response variables.
+# For this reason, I plotted sale price on the x-axis instead of sale price versus size.
+price  <- saleprice$price...M.
+size <- saleprice$Size..k.sq.ft.
+ratio <- saleprice$Ratio
+lm1 <- lm(size~price)
+lm2 <- lm(ratio~price)
+plot(price,size)
+abline(lm1,col="red")
+plot(price,ratio)
+abline(lm2,col="red")
+
+# Part B: Use the `lm` function to estimate the equations of each regression model for `sale price versus size` and `sale price versus land-to-building ratio`.  
+lm1
+lm2
+
+# Part C: Check the error model assumption visually by constructing a residual plot and QQplot of the residuals for 
+# the two models.  
+plot(lm1, which=1)
+plot(lm1, which=2)
+plot(lm2, which=1)
+plot(lm2, which=2)
+
+# Part D: Estimate the population regression slope of each model (line) by constructing 95% confidence interval. Give a brief interpretation of the estimated slope in the context of the problem.   
+confint(lm1)
+confint(lm2)
+
+# Part E: Perform a hypothesis test on the regression slope of each model (line), use a 5% level of significance. 
+# Give an appropriate conclusion.
+#    H0: b1 = 0
+#    Ha: b1 != 0
+summary(lm1)   
+summary(lm2)   
+
+```
+
+### Code Analysis
+#### Sale Price versus Size
+i) We roughly observe from the first scatterplot that as price increases, size increases.
+ii) size = 722.34 + (93.33 * price)
+iii) The residuals vs fitted plot reveals a potential curvilinear relationship which cause us to question the linear relationship. The variance of the residual terms seems to be relatively constant. There may be outliers. The QQplot reveals a few values off the line but mostly appears to be normally distributed.
+iv) The 95% confidence interval for the slope is (15.74399, 170.915). Zero is not a plausible value for the population regression slope on price as predictor of size. Hence, price may have an influence on size
+v) Since p-value (0.02415) < alpha (0.05), we reject the null hypothesis that the population slope is zero. Based on this simple regression model, there is sufficient evidence to conclude that the price is useful in predicting property size.  
+
+#### Sale Price versus Land-to-Building Ratio
+i) We observe from the second scatterplot that as price increases, land-to-building ratio decreases.
+ii) ratio = 6.7872 + (-0.1729 * price)
+iii) The residuals vs fitted plot reveals a linear relationship. The variance of the residual terms seems to be relatively constant with one outlier. The QQplot reveals a few values off the line but mostly appears to be normally distributed.
+iv) The 95% confidence interval for the slope is (-0.5726689, 0.2269614). Zero is a plausible value for the population regression slope on price as predictor of land-to-building ratio. Hence, price may have no influence on land-to-building ratio.
+v) Since p-value (0.348) > alpha (0.05), we fail to reject the null hypothesis that the population slope is zero. Based on this simple regression model, there is insufficient evidence to conclude that the price is useful in predicting land-to-building ratio.
+&nbsp;  
+&nbsp; 
