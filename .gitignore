@@ -38,5 +38,9 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
+# PDF knit files
+*.log
+*.tex
+
 # Mac file
 .DS_Store
